@@ -27,11 +27,11 @@ http.createServer(function(request, response) {
     var bodyData='';
     request.on('data',function(data){bodyData+=data});
     request.on('end',function() {
-       var vm=require("vm");
        try{
-       vm.runInThisContext('var petition=' + bodyData,vm.createContext());
+           var petition=JSON.parse(bodyData);
        }
        catch(err){
+           console.log(bodyData);
            utils.responseWrong(response,"Could not parse JSON");
            return;
        }
