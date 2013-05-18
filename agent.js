@@ -50,5 +50,11 @@ http.createServer(function(request, response) {
            utils.responseWrong(response,"Could not perform action " + petition.action,405);
            return;
        }
+       try{
+       action.run(petition,configuration,utils,response);
+       }
+       catch(err){
+           utils.responseWrong(response,"Error trying to perform action " + petition.action,500);
+       }
     });
 }).listen(configuration.port);
