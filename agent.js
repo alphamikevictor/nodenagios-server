@@ -31,7 +31,6 @@ http.createServer(function(request, response) {
            var petition=JSON.parse(bodyData);
        }
        catch(err){
-           console.log(bodyData);
            utils.responseWrong(response,"Could not parse JSON");
            return;
        }
