@@ -13,3 +13,4 @@ Modules right now:
 - df: test free space on a given partition
     - linux: tested on RHEL 6
     - windows: tested on XP (use drive: with upper case)
+- queryservice: query on a win platform the status of a given service
