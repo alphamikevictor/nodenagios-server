@@ -18,10 +18,17 @@ var action = {
         }
         switch (process.platform) {
         case 'darwin':
+            var command = "df -k " + petition.partition;
         case 'linux':
-            command = "df -k " + petition.partition;
+            /* 
+                On linux we use -P to printout with POSIX format,
+                otherwise partition with long device or mount point names
+                are splited in more than 1 line causing application to fail
+            */
+            var command = command || "df -kP " + petition.partition;
             try {
-                var cmdutil = require(configuration.pluginsdir + '/plugin_cmd.js');
+                var pluginsdir = configuration.pluginsdir || __dirname;
+                var cmdutil = require(pluginsdir + '/plugin_cmd.js');
             }
             catch (err){
                 utils.responseWrong(response,"Can not open plugin_cmd.js file");
@@ -43,7 +50,8 @@ var action = {
         case 'win32':
             command = configuration.sysinternalsdir + "psinfo -d";
             try{
-                var cmdutil = require(configuration.pluginsdir + '/plugin_cmd.js');
+                var pluginsdir = configuration.pluginsdir || __dirname;
+                var cmdutil = require(pluginsdir + '/plugin_cmd.js');
             }
             catch (err){
                 utils.responseWrong(response,"Unable to run command: " + command);
