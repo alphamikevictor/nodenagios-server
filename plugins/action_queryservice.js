@@ -17,7 +17,7 @@ var action = {
             utils.responseWrong(response,"Platform " + process.platform + " is not allowed on this plugin, only win32 and win64");
             return;
         }
-        command="%SystemRoot%/system32/sc query " + petition.service;
+        command="%SystemRoot%/system32/sc query \"" + petition.service + "\"";
         try {
             var pluginsdir = configuration.pluginsdir || __dirname;
             var cmdutil = require(pluginsdir + '/plugin_cmd.js');
