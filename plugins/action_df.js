@@ -61,20 +61,26 @@ var action = {
             var informationSend = false;
             cmdutil.on('data',function(data){
                 if (data[0] == petition.partition){
-                    if (data.length != 8) {
+					/*
+						Probably we can expect empty labels or with spaces so we need
+						at least 8 fields
+					*/
+                    if (data.length < 8) {
                         utils.responseWrong(response,"I cannot extract information for drive " + petition.partition);
                         return;
                     }
                     /*
                         PsInfo gives you % free space instead of %used space like linux will, so
                         you need to perform little calculation :)
+						
+						positions for Size, free will depend on data.length
                     */
                     information = {
                                     partition_name: data[0],
-                                    partition_size: data[3]+data[4],
+                                    partition_size: data[data.length - 5]+data[data.length -4],
                                     partition_usage: null,
-                                    partition_available: data[5]+data[6],
-                                    partition_percent: Math.round(100*(100 - [7].match(/[0-9]+/)[0]))/100
+                                    partition_available: data[data.length -3]+data[data.length -2],
+                                    partition_percent: Math.round(100*(100 - data[data.length -1].match(/[0-9]+/)[0]))/100
                                     };
                     informationSend = true;
                     utils.responseOk(response,JSON.stringify(information));
