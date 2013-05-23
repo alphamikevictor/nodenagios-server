@@ -19,7 +19,8 @@ var action = {
         }
         command="%SystemRoot%/system32/sc query " + petition.service;
         try {
-            var cmdutil = require(configuration.pluginsdir + '/plugin_cmd.js');
+            var pluginsdir = configuration.pluginsdir || __dirname;
+            var cmdutil = require(pluginsdir + '/plugin_cmd.js');
         }
         catch (err){
             utils.responseWrong(response,"Can not open plugin_cmd.js file");

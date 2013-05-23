@@ -31,6 +31,7 @@ http.createServer(function(request, response) {
            var petition=JSON.parse(bodyData);
        }
        catch(err){
+           console.error(err);
            utils.responseWrong(response,"Could not parse JSON");
            return;
        }
@@ -43,9 +44,11 @@ http.createServer(function(request, response) {
            return;
        }
        try{
-           var action=require(configuration.pluginsdir + '/action_' + petition.action + '.js');
+           var pluginsdir = configuration.pluginsdir || __dirname + '/plugins';
+           var action=require(pluginsdir + '/action_' + petition.action + '.js');
        }
        catch(err){
+           console.error(err);
            utils.responseWrong(response,"Could not perform action " + petition.action,405);
            return;
        }
@@ -53,6 +56,7 @@ http.createServer(function(request, response) {
        action.run(petition,configuration,utils,response);
        }
        catch(err){
+           console.error(err);
            utils.responseWrong(response,"Error trying to perform action " + petition.action,500);
        }
     });
