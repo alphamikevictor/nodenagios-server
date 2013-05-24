@@ -1,12 +1,20 @@
 /*
-    Optional vmtime
+    Require counter
+    Require index // for some values you can have multiple return values (like processor
+    which returns you each processor and finally the sum)
     Return JSON:
     {
-        cpu_user: ,
-        cpu_system: ,
-        cpu_wait: ,
-        cpu_total:
+        perfmon_value: perfvalue
     }
+    
+    With perfmon you can monitor a frankly lot of values, unfortunately
+    it will depend on your computer language to get some values, for example
+    to get the total processor use:
+    
+    - English: \Processor(*)\% Processor Time
+    - Spanish: \Procesador(*)\% de tiempo de procesador
+    
+    
 */
 
 var action = {
