@@ -14,3 +14,6 @@ Modules right now:
     - linux: tested on RHEL 6
     - windows: tested on XP (use drive: with upper case)
 - queryservice: query on a win platform the status of a given service
+- cpu: check cpu usage
+    - linux: tested on RHEL6
+- perfmon: query perfmon monitors on windows, you need to know which counter retrieve and which index, you can check it with "typeperf -q" and then with "typeperf -sc 1 counter" to check which index do you need.
